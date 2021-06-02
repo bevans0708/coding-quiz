@@ -52,3 +52,11 @@ header {
    margin: 10px 10%;
 }
 
+.btn-grid {
+   display: grid;
+}
+
+.hide {
+   display: none;
+}
+

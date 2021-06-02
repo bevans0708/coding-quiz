@@ -19,9 +19,19 @@
       <section>
          <h1 class="title">Welcome to Brandon's Coding Quiz</h1>
          <h2 class="instruction">Click start to test your coding knowledge!</h2>
-         <div id="qContainer" class="hide"></div>
-         <button id="start-btn" class="start-btn btn">Start Quiz!</button>
-         <button id="next-btn" class="next-btn btn hide">Next</button>
+         <div id="qContainer" class="hide">
+            <div id="question">Question</div>
+            <div id="ans-btns" class="btn-grid">
+               <button class="btn">Answer 1</button>
+               <button class="btn">Answer 2</button>
+               <button class="btn">Answer 3</button>
+               <button class="btn">Answer 4</button>
+            </div>
+         </div>
+         <div class="controls">
+            <button id="start-btn" class="start-btn btn">Start Quiz!</button>
+            <button id="next-btn" class="next-btn btn hide">Next</button>
+         </div>
       </section>
    </main>
    <script src="./assets/js/script.js"></script>
