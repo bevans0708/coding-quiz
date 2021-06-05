@@ -53,7 +53,7 @@ var questionEl = document.getElementById("question")
 var answerBtnEl = document.getElementById("ans-btns")
 var scoreBtnEl = document.getElementById("score-btn")
 var timerStart = 91;
-var timer = setInterval(startTimer, 1000);
+var timer ;
 var shuffledQ, currentQIndex
 
 function startQuiz() {
@@ -61,7 +61,7 @@ function startQuiz() {
    shuffledQ = testQuestions.sort(() => Math.random() - .5)
    currentQIndex = 0
    qContainer.classList.remove('hide')
-   startTimer()
+   timer = setInterval(startTimer, 1000)
    setNextQuestion()
 
 };
@@ -69,16 +69,28 @@ function startQuiz() {
 function startTimer() {
    timerStart--
    if (timerStart <= 0) {
-      clearInterval(timer);
-      return;
+      quizEnd();
    }
-
+   
    document.getElementById('timer').innerHTML=timerStart + " seconds";
+}
+
+function quizEnd() {
+   clearInterval(timerStart);
+   var endScreen = document.getElementById("end")
+   endScreen.classList.remove('hide')
+   qContainer.setAttribute('class', 'hide')
+   console.log(timerStart)
 }
 
 function setNextQuestion() {
    resetState()
    showQuestion(shuffledQ[currentQIndex])
+   if(currentQIndex === testQuestions.length) {
+      quizEnd();
+   } else {
+      showQuestion()
+   }
 }
 
 function showQuestion(question) {
