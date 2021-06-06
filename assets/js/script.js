@@ -45,6 +45,7 @@ var testQuestions = [
       ],
     }
 ];
+console.log('Questions', testQuestions)
 
 var startBtnEl = document.getElementById("start-btn")
 var qContainer = document.getElementById("qContainer")
@@ -56,6 +57,7 @@ var timerStart = 91;
 var timer ;
 var shuffledQ, currentQIndex
 
+// start quiz
 function startQuiz() {
    startBtnEl.classList.add('hide')
    shuffledQ = testQuestions.sort(() => Math.random() - .5)
@@ -66,23 +68,25 @@ function startQuiz() {
 
 };
 
+// start timer after start quix button is clicked
 function startTimer() {
    timerStart--
    if (timerStart <= 0) {
       quizEnd();
    }
    
-   document.getElementById('timer').innerHTML=timerStart + " seconds";
+   document.getElementById('timer').innerHTML='Time Left: ' + timerStart + " seconds";
 }
 
+// ending quiz and stopping timere
 function quizEnd() {
    clearInterval(timerStart);
    var endScreen = document.getElementById("end")
    endScreen.classList.remove('hide')
    qContainer.setAttribute('class', 'hide')
-   console.log(timerStart)
 }
 
+// show next question or end quiz after next button is clicked
 function setNextQuestion() {
    resetState()
    showQuestion(shuffledQ[currentQIndex])
@@ -92,7 +96,7 @@ function setNextQuestion() {
       showQuestion()
    }
 }
-
+// function showing quesiton buttons and injecting question info from testQuestions array
 function showQuestion(question) {
    questionEl.innerText = question.question
    question.answers.forEach(answer => {
@@ -107,6 +111,7 @@ function showQuestion(question) {
    })
 }
 
+// reset the state of the question and anwsers
 function resetState() {
    nextBtnEl.classList.add('hide')
    while (answerBtnEl.firstChild) {
@@ -115,18 +120,26 @@ function resetState() {
    }
 }
 
+// selected answer will be confirmed correct or wrong
 function selectAnswer(event) {
    var selectedBtn = event.target
-   var correct = selectedBtn.dataset.correct
-   Array.from(answerBtnEl.children).forEach(button => {
-      setStatusClass(button, button.dataset.correct)
-   })
+   // var correct = selectedBtn.dataset.correct
+   // Array.from(answerBtnEl.children).forEach(button => {
+   //    setStatusClass(button, button.dataset.correct)
+   // })
+   
+   window.onclick = event => {
+      console.log(event.target);
+   }
    if (shuffledQ.length > currentQIndex + 1) {
       nextBtnEl.classList.remove('hide')
    } else {
       scoreBtnEl.classList.remove('hide')
    }
 }
+
+
+
 
 function setStatusClass(element, correct) {
    clearStatusClass(element)
@@ -142,8 +155,13 @@ function clearStatusClass(element) {
    element.classList.remove('wrong')
 }
 
+function saveScoreForm(){
+
+}
+
 startBtnEl.addEventListener("click", startQuiz);
 nextBtnEl.addEventListener("click", () => {
    currentQIndex++
    setNextQuestion()
 });
+scoreBtnEl.addEventListener('click', saveScoreForm)
