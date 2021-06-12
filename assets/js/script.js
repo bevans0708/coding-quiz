@@ -54,10 +54,12 @@ var questionEl = document.getElementById("question")
 var answerBtnEl = document.getElementById("ans-btns")
 var highScoreEl = document.getElementById("high-score-link")
 var scoreBtnEl = document.getElementById("score-btn")
+var saveBtnEl = document.getElementById("save-btn")
 var initialsEl = document.getElementById("end")
 var timerStart = 20;
 var timer ;
-var shuffledQ, currentQIndex
+var shuffledQ, currentQIndex;
+var scores = [];
 
 // starts quiz
 function startQuiz() {
@@ -169,8 +171,15 @@ function clearStatusClass(element) {
    element.classList.remove('wrong')
 }
 
-function saveScoreForm(){
+function saveScore(){
+   var userInput = {
+      // score: ;
+      initials: document.getElementById('initials').value
+   }
+   scores.push(userInput);
+   console.log('Score', {scores});
 
+   localStorage.setItem('highScoresList', JSON.stringify(scores));
 }
 
 startBtnEl.addEventListener("click", startQuiz);
@@ -178,5 +187,5 @@ nextBtnEl.addEventListener("click", () => {
    currentQIndex++
    setNextQuestion()
 });
-scoreBtnEl.addEventListener("click", saveScoreForm)
 highScoreEl.addEventListener("click", highScore);
+saveBtnEl.addEventListener("click", saveScore)
