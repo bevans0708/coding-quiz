@@ -52,8 +52,10 @@ var qContainer = document.getElementById("qContainer")
 var nextBtnEl = document.getElementById("next-btn")
 var questionEl = document.getElementById("question")
 var answerBtnEl = document.getElementById("ans-btns")
+var highScoreEl = document.getElementById("high-score-link")
 var scoreBtnEl = document.getElementById("score-btn")
-var timerStart = 91;
+var initialsEl = document.getElementById("end")
+var timerStart = 10;
 var timer ;
 var shuffledQ, currentQIndex
 
@@ -68,23 +70,30 @@ function startQuiz() {
 
 };
 
-// start timer after start quix button is clicked
+// ending quiz and stopping timer
+function quizEnd() {
+   clearInterval(timerStart);
+   // this doesn't seem to do anything
+   initialsEl.classList.remove('hide')  
+   qContainer.setAttribute('class', 'hide')
+   return timerStart
+}
+
+
+// start timer after start quiz button is clicked
 function startTimer() {
    timerStart--
    if (timerStart <= 0) {
+      // doesn't stop timer I start to get violations
+      clearInterval(startTimer = 0)
+      alert('Times Up!')
+      // doesn't get called?????
       quizEnd();
    }
    
    document.getElementById('timer').innerHTML='Time Left: ' + timerStart + " seconds";
 }
 
-// ending quiz and stopping timere
-function quizEnd() {
-   clearInterval(timerStart);
-   var endScreen = document.getElementById("end")
-   endScreen.classList.remove('hide')
-   qContainer.setAttribute('class', 'hide')
-}
 
 // show next question or end quiz after next button is clicked
 function setNextQuestion() {
@@ -123,10 +132,10 @@ function resetState() {
 // selected answer will be confirmed correct or wrong
 function selectAnswer(event) {
    var selectedBtn = event.target
-   // var correct = selectedBtn.dataset.correct
-   // Array.from(answerBtnEl.children).forEach(button => {
-   //    setStatusClass(button, button.dataset.correct)
-   // })
+   var correct = selectedBtn.dataset.correct
+   Array.from(answerBtnEl.children).forEach(button => {
+      setStatusClass(button, button.dataset.correct)
+   })
    
    window.onclick = event => {
       console.log(event.target);
@@ -138,7 +147,10 @@ function selectAnswer(event) {
    }
 }
 
+// function highScore() {
 
+
+// }
 
 
 function setStatusClass(element, correct) {
@@ -164,4 +176,5 @@ nextBtnEl.addEventListener("click", () => {
    currentQIndex++
    setNextQuestion()
 });
-scoreBtnEl.addEventListener('click', saveScoreForm)
+scoreBtnEl.addEventListener("click", saveScoreForm)
+highScoreEl.addEventListener("click", highScore);
