@@ -55,11 +55,11 @@ var answerBtnEl = document.getElementById("ans-btns")
 var highScoreEl = document.getElementById("high-score-link")
 var scoreBtnEl = document.getElementById("score-btn")
 var initialsEl = document.getElementById("end")
-var timerStart = 10;
+var timerStart = 20;
 var timer ;
 var shuffledQ, currentQIndex
 
-// start quiz
+// starts quiz
 function startQuiz() {
    startBtnEl.classList.add('hide')
    shuffledQ = testQuestions.sort(() => Math.random() - .5)
@@ -74,9 +74,8 @@ function startQuiz() {
 function quizEnd() {
    clearInterval(timerStart);
    // this doesn't seem to do anything
-   initialsEl.classList.remove('hide')  
+   location.replace('./score.html')
    qContainer.setAttribute('class', 'hide')
-   return timerStart
 }
 
 
@@ -85,7 +84,7 @@ function startTimer() {
    timerStart--
    if (timerStart <= 0) {
       // doesn't stop timer I start to get violations
-      clearInterval(startTimer = 0)
+      clearInterval(timerStart = 0)
       alert('Times Up!')
       // doesn't get called?????
       quizEnd();
@@ -114,7 +113,10 @@ function showQuestion(question) {
       button.classList.add('btn')
       if (answer.correct) {
          button.dataset.correct = answer.correct
-      }
+      } 
+      // else {
+      //    timerStart = timerStart - 10;
+      // }
       button.addEventListener('click', selectAnswer)
       answerBtnEl.appendChild(button)
    })
@@ -147,10 +149,10 @@ function selectAnswer(event) {
    }
 }
 
-// function highScore() {
+function highScore() {
+   initialsEl.classList.add('hide')
 
-
-// }
+}
 
 
 function setStatusClass(element, correct) {
