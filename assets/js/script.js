@@ -1,3 +1,4 @@
+// array of questions and their answers
 var testQuestions = [ 
    {
       question: "What does 'HTML' stand for?",
@@ -47,6 +48,7 @@ var testQuestions = [
 ];
 console.log('Questions', testQuestions)
 
+// various variable targeting ID's from HTML doc
 var startBtnEl = document.getElementById("start-btn")
 var qContainer = document.getElementById("qContainer")
 var nextBtnEl = document.getElementById("next-btn")
@@ -56,7 +58,7 @@ var highScoreEl = document.getElementById("high-score-link")
 var scoreBtnEl = document.getElementById("score-btn")
 var saveBtnEl = document.getElementById("save-btn")
 var initialsEl = document.getElementById("end")
-var timerStart = 20;
+var timerStart = 70;
 var timer ;
 var shuffledQ, currentQIndex;
 var scores = [];
@@ -151,12 +153,13 @@ function selectAnswer(event) {
    }
 }
 
+// this was supposed to be a function to display top scores after the high score button was clicked
 function highScore() {
    initialsEl.classList.add('hide')
 
 }
 
-
+// changes the status of the answer button to display if correct or wrong
 function setStatusClass(element, correct) {
    clearStatusClass(element)
    if (correct) {
@@ -166,11 +169,14 @@ function setStatusClass(element, correct) {
    }
 }
 
+// clears the classes for the next question to be displayed
 function clearStatusClass(element) {
    element.classList.remove('correct')
    element.classList.remove('wrong')
 }
 
+
+// supposed to save the score and user initials
 function saveScore(){
    var userInput = {
       // score: ;
@@ -182,6 +188,7 @@ function saveScore(){
    localStorage.setItem('highScoresList', JSON.stringify(scores));
 }
 
+// event listeners for various buttons
 startBtnEl.addEventListener("click", startQuiz);
 nextBtnEl.addEventListener("click", () => {
    currentQIndex++
